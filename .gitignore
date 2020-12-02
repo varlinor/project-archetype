@@ -1,0 +1,9 @@
+.idea/
+*.iml
+*-lock.json
+
+node_modules/
+
+# release/
+prebuild/
+debug/

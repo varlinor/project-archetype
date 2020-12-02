@@ -1,0 +1,148 @@
+// used for index.html
+@import "base-var";
+
+*{
+  box-sizing: border-box;
+}
+
+@import "normalize";
+
+html{
+  font-size: @base-font-scale;
+  font-family: @base-font-family;
+}
+
+body{
+  color: @base-text-color;
+  //background-color: @base-bg-color;
+}
+
+a{
+  text-decoration: none;
+  &:hover,:active,:visited{
+    text-decoration: none;
+  }
+}
+
+.createOpacity(@counter:0.9) when(@counter > 0.1){
+  .createOpacity((@counter - .1));
+  @opacity-class:10 * @counter;
+  .@{base-pre}-opacity-@{opacity-class} {
+    opacity: @counter;
+  }
+
+}
+/* 定义opacity */
+.createOpacity();
+
+.createColumn(@col-count:12) when (@col-count > 0 ){
+  .createColumn((@col-count - 1 ));
+  .@{base-pre}-col-@{col-count}{
+    width: @base-full-width * ( @col-count / 12 );
+    float: left;
+  }
+}
+/* 定义列 */
+.createColumn();
+
+.@{base-pre}-hide{
+  display: none;
+}
+
+.shadeColor(@var-color,@var-percent,@var-colorIdx,@var-theme-name){
+  @var-colorVal:~"`parseInt('@{var-color}'.substring(1),16)`";
+  @var-t:~"`@{var-percent}<0 ? 0 : 255`";
+  @var-p:~"`@{var-percent} < 0 ? @{var-percent} * -1 : @{var-percent}`";
+  @var-R:~"`@{var-colorVal}>>16`";
+  @var-G:~"`@{var-colorVal}>>8 & 0x00FF`";
+  @var-B:~"`@{var-colorVal} & 0x0000FF`";
+  @outputColor:~"#`(0x1000000 +
+      (Math.round((@{var-t} - @{var-R}) * @{var-p}) + @{var-R}) * 0x10000 +
+      (Math.round((@{var-t} - @{var-G}) * @{var-p}) + @{var-G}) * 0x100 +
+      (Math.round((@{var-t} - @{var-B}) * @{var-p}) + @{var-B})).toString(16).slice(1)`";
+
+  //.@{base-pre}-theme-@{var-theme-name}-@{var-colorIdx}{ color: @outputColor };
+
+  .@{base-pre}-theme-@{var-theme-name}-@{var-colorIdx}{
+    color: @outputColor
+  }
+  .@{base-pre}-theme-@{var-theme-name}-bg-@{var-colorIdx}{
+    background: @outputColor
+  }
+}
+
+// create theme color func
+.createThemeColors(@var-theme-color,@var-theme-name){
+
+  .shadeColor(@var-theme-color,0.9,1,@var-theme-name);
+  .shadeColor(@var-theme-color,0.7,2,@var-theme-name);
+  .shadeColor(@var-theme-color,0.5,3,@var-theme-name);
+  .shadeColor(@var-theme-color,0.333,4,@var-theme-name);
+  .shadeColor(@var-theme-color,0.166,5,@var-theme-name);
+  .shadeColor(@var-theme-color,0,6,@var-theme-name);
+  .shadeColor(@var-theme-color,-0.125,7,@var-theme-name);
+  .shadeColor(@var-theme-color,-0.25,8,@var-theme-name);
+  .shadeColor(@var-theme-color,-0.375,9,@var-theme-name);
+  .shadeColor(@var-theme-color,-0.5,10,@var-theme-name);
+}
+
+/* 定义颜色 */
+//.createThemeColors(@base-theme-blue-color,@base-theme-blue-name);
+//.createThemeColors(@base-theme-gray-color,@base-theme-gray-name);
+
+/*
+
+.bs-table-container {
+  overflow: hidden;
+  height: 100%;
+  position: relative;
+  .tbl-header {
+    width: 100%;
+  }
+  .tbl-body {
+    width: 100%;
+    overflow: hidden;
+    display: block;
+    position: relative;
+  }
+  table {
+    width: 100%;
+    border: 0;
+    border-collapse: collapse;
+    height: 100%;
+    overflow: hidden;
+  }
+}
+
+.bs-table-container table>tbody>tr>td, 
+.bs-table-container table>tbody>tr>th, 
+.bs-table-container table>tfoot>tr>td, 
+.bs-table-container table>tfoot>tr>th, 
+.bs-table-container table>thead>tr>td, 
+.bs-table-container table>thead>tr>th {
+    border:0;
+    padding: 8px;
+    vertical-align: top;
+    border-bottom: 2px solid #0b41a5;
+    font-size: 24px;
+    color: #7498CE;
+    text-align: left;
+    height: 60px;
+    line-height: 60px;
+}
+.bs-table-container table>thead>tr>td, 
+.bs-table-container table>thead>tr>th {
+    border-bottom: 2px solid #6D7890;
+    color: #FFF;
+}
+.bs-table-container .tbl-header table>tbody>tr>td {
+    border-bottom: 0;
+}
+
+*/
+
+
+
+
+
+

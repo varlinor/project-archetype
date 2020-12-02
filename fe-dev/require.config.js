@@ -1,0 +1,25 @@
+require.config({
+    baseUrl:'../',
+    paths:{
+        'jquery':'vendor/jquery/jquery-2.2.4.min',
+        'lodash':'vendor/lodash/lodash-core-4.17.10',
+        'systemjs':'vendor/systemjs/system',
+        'handsontable':'vendor/handsontable/handsontable.full.min',
+
+        'AppDir':'app',
+    },
+    shim:{
+        'jquery':{
+            exports:'$'
+        },
+        'lodash':{
+            exports:'_'
+        }
+    },
+    map:{
+        '*':{
+            'text':'vendor/requirejs/plugins/text-2.0.15',
+            'i18n':'vendor/requirejs/plugins/i18n-2.0.6'
+        }
+    }
+});
